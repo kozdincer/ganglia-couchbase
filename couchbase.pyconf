@@ -2,6 +2,13 @@ modules {
   module {
     name = "couchbase"
     language = "python"
+    param refresh_rate{ value = 5 }
+    param host { value = "10.0.0.1" }
+    param port { value = 8091 }
+    param bucket { value = "default" }
+    param prefix { value = "cb_" }
+    param username { value = "ganglia" }
+    param password { value = "gasecret" }
   }
 }
 
@@ -12,4 +19,3 @@ collection_group {
     name_match = "cb_(.+)"
   }
 }
-
