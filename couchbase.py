@@ -10,11 +10,6 @@ import json
 
 global url, samples, prefix, refresh_rate
 
-#url = None
-#samples = None
-#prefix = None
-#lock = None
-
 
 def get_data_for(name):
     global samples, lock, prefix
@@ -22,7 +17,7 @@ def get_data_for(name):
     unprefixed_name=name[len(prefix):]
 
     lock.acquire()
-    #print samples[unprefixed_name]
+    print samples[unprefixed_name]
     ret = int( sum(samples[unprefixed_name]) / len(samples[unprefixed_name]) )
     lock.release()
     return ret
@@ -60,7 +55,7 @@ def pull_samples_from_couchbase():
    global samples, lock, username, password
 
    r = requests.get(url, auth=(username, password))
-   #print r.content
+
    j = json.loads(r.content)
    s = j['op']['samples']
 
@@ -105,7 +100,6 @@ def metric_init(params):
         password= params['password']
     
     url = 'http://%s:%s/pools/default/buckets/%s/nodes/%s:%s/stats/' %(host, port, bucket, host, port)
-    #print "url: %s\n" %(url)
 
     pull_samples_from_couchbase()
 
@@ -123,14 +117,14 @@ def metric_cleanup():
 #This code is for debugging and unit testing    
 if __name__ == '__main__':
     global url, lock, samples
-    params = {'refresh_rate': '20', 'host':'10.10.0.11', 'port':'8091', 'bucket':'salesmen', 'prefix':'cb_', 'username':'Administrator', 'password':'supersecret'}
+    params = {'refresh_rate': '20', 'host':'10.0.0.1', 'port':'8091', 'bucket':'default', 'prefix':'cb_', 'username':'ganglia', 'password':'gasecret'}
 
     print "calling init"
     metric_init(params)
     print "init done, url is %s" %(url)
-
+    print "observing just one of the metrics here for testing, cb_ops"
     while 1:
-      print "sleep 3 then print data for cb_ops"
+      print "sleep 3"
       time.sleep(3)
       print get_data_for('cb_ops')
     
