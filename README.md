@@ -14,4 +14,6 @@ is to run on one couchbase server for one bucket and another for another bucket.
 
 TODO: 
 - support more than one bucket, different prefix per bucket 
+- make parameter to adjust how many of the data point series you want to average over, right now using all so 
+  single spikes in a sea of zeros may get lost
 - lower end version for stats that are not bucket specific but just general cluster stats
