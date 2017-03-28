@@ -12,6 +12,7 @@ modules {
   }
 }
 
+# this yields more than 200 metrics, may want to be more selective if you know what you need:
 collection_group {
   collect_every = 10
   time_threshold = 50

@@ -17,7 +17,7 @@ def get_data_for(name):
     unprefixed_name=name[len(prefix):]
 
     lock.acquire()
-    print samples[unprefixed_name]
+    #print samples[unprefixed_name]
     ret = int( sum(samples[unprefixed_name]) / len(samples[unprefixed_name]) )
     lock.release()
     return ret
